@@ -1,0 +1,358 @@
+<CoordinateSystem> { Z-up } 
+<Material> Brick_Flemish_Bond1 {
+  <Scalar> diffr { 0.640000 }
+  <Scalar> diffg { 0.640000 }
+  <Scalar> diffb { 0.640000 }
+  <Scalar> specr { 0.500000 }
+  <Scalar> specg { 0.500000 }
+  <Scalar> specb { 0.500000 }
+  <Scalar> shininess { 12.5 }
+  <Scalar> ambr { 1.000000 }
+  <Scalar> ambg { 1.000000 }
+  <Scalar> ambb { 1.000000 }
+  <Scalar> emitr { 0.000000 }
+  <Scalar> emitg { 0.000000 }
+  <Scalar> emitb { 0.000000 }
+}
+
+<Material> Brick_Antique_ {
+  <Scalar> diffr { 0.640000 }
+  <Scalar> diffg { 0.640000 }
+  <Scalar> diffb { 0.640000 }
+  <Scalar> specr { 0.500000 }
+  <Scalar> specg { 0.500000 }
+  <Scalar> specb { 0.500000 }
+  <Scalar> shininess { 12.5 }
+  <Scalar> ambr { 1.000000 }
+  <Scalar> ambg { 1.000000 }
+  <Scalar> ambb { 1.000000 }
+  <Scalar> emitr { 0.000000 }
+  <Scalar> emitg { 0.000000 }
+  <Scalar> emitb { 0.000000 }
+}
+
+<Texture> Texture.005 {
+  "/c/Users/oneak/Downloads/room_dae/room35/Brick_Flemish_Bond1.jpg"
+  <Scalar> envtype { MODULATE }
+  <Scalar> minfilter { LINEAR_MIPMAP_LINEAR }
+  <Scalar> magfilter { LINEAR_MIPMAP_LINEAR }
+  <Scalar> wrap { REPEAT }
+}
+
+<Texture> Texture.008 {
+  "/c/Users/oneak/Downloads/room_dae/room35/Brick_Antique_.jpg"
+  <Scalar> envtype { MODULATE }
+  <Scalar> minfilter { LINEAR_MIPMAP_LINEAR }
+  <Scalar> magfilter { LINEAR_MIPMAP_LINEAR }
+  <Scalar> wrap { REPEAT }
+}
+
+  <Group> SketchUp.031 {
+    <Transform> {
+      <Matrix4> {
+        0.02539999783039093 0.0 0.0 0.0 
+        0.0 0.02539999783039093 0.0 0.0 
+        0.0 0.0 0.02539999783039093 0.0 
+        -0.0011696649016812444 -0.003964696545153856 -0.01473974622786045 1.0 
+      }
+    }
+    
+    <VertexPool> SketchUp.031 {
+    
+      <Vertex> 0 {73.150749 77.486885 0.882766
+        <UV>  {
+          52.305672 1.043239 
+        }
+      }
+      <Vertex> 1 {73.150749 77.268082 3.176552
+        <UV>  {
+          52.146141 3.664848 
+        }
+      }
+      <Vertex> 2 {73.150749 77.268082 0.882766
+        <UV>  {
+          52.146141 1.043239 
+        }
+      }
+      <Vertex> 3 {73.150749 77.268082 3.176552
+        <UV>  {
+          52.146141 3.664848 
+        }
+      }
+      <Vertex> 4 {73.150749 77.486885 0.882766
+        <UV>  {
+          52.305672 1.043239 
+        }
+      }
+      <Vertex> 5 {73.150749 77.486885 3.176552
+        <UV>  {
+          52.305672 3.664848 
+        }
+      }
+      <Vertex> 6 {76.817642 77.486885 3.176552
+        <UV>  {
+          52.299843 3.664848 
+        }
+      }
+      <Vertex> 7 {73.150749 77.486885 0.882766
+        <UV>  {
+          49.626305 1.043239 
+        }
+      }
+      <Vertex> 8 {76.817642 77.486885 0.882766
+        <UV>  {
+          52.299843 1.043239 
+        }
+      }
+      <Vertex> 9 {73.150749 77.486885 0.882766
+        <UV>  {
+          49.626305 1.043239 
+        }
+      }
+      <Vertex> 10 {76.817642 77.486885 3.176552
+        <UV>  {
+          52.299843 3.664848 
+        }
+      }
+      <Vertex> 11 {73.150749 77.486885 3.176552
+        <UV>  {
+          49.626305 3.664848 
+        }
+      }
+      <Vertex> 12 {73.150749 77.268082 3.176552
+        <UV>  {
+          49.626305 3.664847 
+        }
+      }
+      <Vertex> 13 {72.882942 77.268082 0.882766
+        <UV>  {
+          49.431046 1.043239 
+        }
+      }
+      <Vertex> 14 {73.150749 77.268082 0.882766
+        <UV>  {
+          49.626305 1.043239 
+        }
+      }
+      <Vertex> 15 {72.882942 77.268082 0.882766
+        <UV>  {
+          49.431046 1.043239 
+        }
+      }
+      <Vertex> 16 {73.150749 77.268082 3.176552
+        <UV>  {
+          49.626305 3.664847 
+        }
+      }
+      <Vertex> 17 {72.882950 77.268082 3.176552
+        <UV>  {
+          49.431046 3.664847 
+        }
+      }
+      <Vertex> 18 {72.882950 77.268082 3.176552
+        <UV>  {
+          49.431046 3.664847 
+        }
+      }
+      <Vertex> 19 {73.150749 77.268082 3.176552
+        <UV>  {
+          49.626305 3.664847 
+        }
+      }
+      <Vertex> 20 {72.915062 77.268082 3.176552
+        <UV>  {
+          49.454464 3.664847 
+        }
+      }
+      <Vertex> 21 {73.150749 77.486885 3.176552
+        <UV>  {
+          13.859043 10.498319 
+        }
+      }
+      <Vertex> 22 {73.150749 77.486885 0.882766
+        <UV>  {
+          13.859043 2.415026 
+        }
+      }
+      <Vertex> 23 {73.150749 77.268082 3.176552
+        <UV>  {
+          13.087968 10.498319 
+        }
+      }
+      <Vertex> 24 {73.150749 77.268082 0.882766
+        <UV>  {
+          13.087968 2.415026 
+        }
+      }
+      <Vertex> 25 {73.150749 77.268082 3.176552
+        <UV>  {
+          13.087968 10.498319 
+        }
+      }
+      <Vertex> 26 {73.150749 77.486885 0.882766
+        <UV>  {
+          13.859043 2.415026 
+        }
+      }
+      <Vertex> 27 {73.150749 77.486885 3.176552
+        <UV>  {
+          74.903404 10.498319 
+        }
+      }
+      <Vertex> 28 {76.817642 77.486885 3.176552
+        <UV>  {
+          87.825493 10.498319 
+        }
+      }
+      <Vertex> 29 {73.150749 77.486885 0.882766
+        <UV>  {
+          74.903404 2.415026 
+        }
+      }
+      <Vertex> 30 {76.817642 77.486885 0.882766
+        <UV>  {
+          87.825493 2.415026 
+        }
+      }
+      <Vertex> 31 {73.150749 77.486885 0.882766
+        <UV>  {
+          74.903404 2.415026 
+        }
+      }
+      <Vertex> 32 {76.817642 77.486885 3.176552
+        <UV>  {
+          87.825493 10.498319 
+        }
+      }
+      <Vertex> 33 {72.915062 77.268082 3.176552
+        <UV>  {
+          74.072838 10.498319 
+        }
+      }
+      <Vertex> 34 {73.150749 77.268082 3.176552
+        <UV>  {
+          74.903404 10.498319 
+        }
+      }
+      <Vertex> 35 {72.882950 77.268082 3.176552
+        <UV>  {
+          73.959648 10.498319 
+        }
+      }
+      <Vertex> 36 {72.882950 77.268082 3.176552
+        <UV>  {
+          73.959648 10.498319 
+        }
+      }
+      <Vertex> 37 {73.150749 77.268082 3.176552
+        <UV>  {
+          74.903404 10.498319 
+        }
+      }
+      <Vertex> 38 {72.882942 77.268082 0.882766
+        <UV>  {
+          73.959648 2.415026 
+        }
+      }
+      <Vertex> 39 {73.150749 77.268082 0.882766
+        <UV>  {
+          74.903404 2.415026 
+        }
+      }
+      <Vertex> 40 {72.882942 77.268082 0.882766
+        <UV>  {
+          73.959648 2.415026 
+        }
+      }
+      <Vertex> 41 {73.150749 77.268082 3.176552
+        <UV>  {
+          74.903404 10.498319 
+        }
+      }}
+    
+    
+    <Polygon> {
+      <TRef> { Texture.008 }
+      <MRef> { Brick_Antique_ }
+      <Normal> {1.000000 0.000000 0.000000}
+      <VertexRef> { 0 1 2 <Ref> { SketchUp.031 }} 
+    }
+    <Polygon> {
+      <TRef> { Texture.008 }
+      <MRef> { Brick_Antique_ }
+      <Normal> {1.000000 0.000000 0.000000}
+      <VertexRef> { 3 4 5 <Ref> { SketchUp.031 }} 
+    }
+    <Polygon> {
+      <TRef> { Texture.008 }
+      <MRef> { Brick_Antique_ }
+      <Normal> {0.000000 -1.000000 0.000000}
+      <VertexRef> { 6 7 8 <Ref> { SketchUp.031 }} 
+    }
+    <Polygon> {
+      <TRef> { Texture.008 }
+      <MRef> { Brick_Antique_ }
+      <Normal> {0.000000 -1.000000 0.000000}
+      <VertexRef> { 9 10 11 <Ref> { SketchUp.031 }} 
+    }
+    <Polygon> {
+      <TRef> { Texture.008 }
+      <MRef> { Brick_Antique_ }
+      <Normal> {0.000000 -1.000000 0.000000}
+      <VertexRef> { 12 13 14 <Ref> { SketchUp.031 }} 
+    }
+    <Polygon> {
+      <TRef> { Texture.008 }
+      <MRef> { Brick_Antique_ }
+      <Normal> {0.000000 -1.000000 0.000000}
+      <VertexRef> { 15 16 17 <Ref> { SketchUp.031 }} 
+    }
+    <Polygon> {
+      <TRef> { Texture.008 }
+      <MRef> { Brick_Antique_ }
+      <Normal> {0.000000 0.000000 0.000000}
+      <VertexRef> { 18 19 20 <Ref> { SketchUp.031 }} 
+    }
+    <Polygon> {
+      <TRef> { Texture.005 }
+      <MRef> { Brick_Flemish_Bond1 }
+      <Normal> {-1.000000 0.000000 0.000000}
+      <VertexRef> { 21 22 23 <Ref> { SketchUp.031 }} 
+    }
+    <Polygon> {
+      <TRef> { Texture.005 }
+      <MRef> { Brick_Flemish_Bond1 }
+      <Normal> {-1.000000 0.000000 0.000000}
+      <VertexRef> { 24 25 26 <Ref> { SketchUp.031 }} 
+    }
+    <Polygon> {
+      <TRef> { Texture.005 }
+      <MRef> { Brick_Flemish_Bond1 }
+      <Normal> {0.000000 1.000000 0.000000}
+      <VertexRef> { 27 28 29 <Ref> { SketchUp.031 }} 
+    }
+    <Polygon> {
+      <TRef> { Texture.005 }
+      <MRef> { Brick_Flemish_Bond1 }
+      <Normal> {0.000000 1.000000 0.000000}
+      <VertexRef> { 30 31 32 <Ref> { SketchUp.031 }} 
+    }
+    <Polygon> {
+      <TRef> { Texture.005 }
+      <MRef> { Brick_Flemish_Bond1 }
+      <Normal> {0.000000 0.000000 0.000000}
+      <VertexRef> { 33 34 35 <Ref> { SketchUp.031 }} 
+    }
+    <Polygon> {
+      <TRef> { Texture.005 }
+      <MRef> { Brick_Flemish_Bond1 }
+      <Normal> {0.000000 1.000000 0.000000}
+      <VertexRef> { 36 37 38 <Ref> { SketchUp.031 }} 
+    }
+    <Polygon> {
+      <TRef> { Texture.005 }
+      <MRef> { Brick_Flemish_Bond1 }
+      <Normal> {0.000000 1.000000 0.000000}
+      <VertexRef> { 39 40 41 <Ref> { SketchUp.031 }} 
+    }
+  }
