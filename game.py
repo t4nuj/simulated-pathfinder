@@ -95,9 +95,14 @@ class Game(ShowBase):
 		taskMgr.add(self.task_go_to_destination, "task1")
 
 	def take_frame_picture(self):
-		p = PNMImage()
-		base.win.getScreenshot(p)
-		p.write(Filename("test5.jpg"))
+		left = PNMImage()
+		right = PNMImage()
+
+		self.cam1.node().getDisplayRegion(0).getScreenshot(left)
+		self.cam2.node().getDisplayRegion(0).getScreenshot(right)
+
+		left.write(Filename("left.jpg"))
+		right.write(Filename("right.jpg"))
 
 	def task_go_to_destination(self, task):
 		self.take_frame_picture()
