@@ -1,3 +1,4 @@
+from agent_controller import Agent_Controller
 from direct.showbase.ShowBase import ShowBase
 from direct.task import Task
 # from pandac.PandaModules import loadPrcFileData
@@ -19,8 +20,10 @@ from panda3d.core import WindowProperties
 from panda3d.core import PointLight
 from panda3d.core import AmbientLight
 from panda3d.core import VBase4
+from time import sleep
 
 # from panda3d.core import CollisionNode
+
 
 class Game(ShowBase):
 	def __init__(self):
@@ -29,7 +32,7 @@ class Game(ShowBase):
 		loadPrcFileData("", "win-size 400 200")
 		loadPrcFileData("", "show-buffers t")
 		winProp = WindowProperties()
-		winProp.setSize(400,200)
+		winProp.setSize(800,800)
 		base.win.requestProperties(winProp)
 
 		self.cTrav = CollisionTraverser()
@@ -49,19 +52,19 @@ class Game(ShowBase):
 		# Load agent model
 		self.agent = loader.loadModel('custom/agent.egg')
 		self.agent.reparentTo(self.render)
-		self.agent.setPos(0, -2, 3)
+		self.agent.setPos(0, 2, 3)
 
+		self.dest = loader.loadModel('custom/agent.egg')
+		self.dest.reparentTo(self.render)
+		self.dest.setPos(4,-3,3)
+
+
+		# Do some collision sphere shit
 		cs = CollisionSphere(0, 0, 0, 0.15)
 		self.cagent = self.agent.attachNewNode(CollisionNode('cnode'))
 		self.cagent.node().addSolid(cs)
-
-		print self.agent.getPos()
-		print self.cagent.getPos()
-
 		self.cTrav.addCollider(self.cagent, self.chandler)
 		self.cTrav.traverse(self.render)
-
-		print self.chandler.getNumEntries()
 
 		min, max = self.agent.getTightBounds()
 		print min, max
@@ -69,18 +72,24 @@ class Game(ShowBase):
 		min, max = self.room.getTightBounds()
 		print min,max
 
-		print "--------"
-
 		base.camNode.setActive(0)
 
-		self.cam1 = base.makeCamera(base.win, displayRegion=(0,.5,0,1))
-		self.cam2 = base.makeCamera(base.win, displayRegion=(.5,1,0,1))
+		self.cam_god = base.makeCamera(base.win, displayRegion=(0,1,0.25,1))
+		self.cam1 = base.makeCamera(base.win, displayRegion=(0.25,.5,0,0.25))
+		self.cam2 = base.makeCamera(base.win, displayRegion=(.5,0.75,0,0.25))
 
 		self.cam1.reparentTo(self.agent)
 		self.cam2.reparentTo(self.agent)
+		self.cam_god.reparentTo(self.agent)
 
 		self.cam1.setPos(-0.03,0,0)
 		self.cam2.setPos(+0.03,0,0)
+		self.cam_god.setPos(0, -2,0.5)
+
+		self.left_dr = self.cam1.node().getDisplayRegion(0)
+		self.right_dr = self.cam2.node().getDisplayRegion(0)
+
+
 
 
 		# Keyboard bindings
@@ -91,46 +100,53 @@ class Game(ShowBase):
 		base.accept('u', self.go_up)
 		base.accept('j', self.go_down)
 
+		self.agent_cont = Agent_Controller(self.agent.getPos(), self.dest.getPos())
 		# Task bindings
-		taskMgr.add(self.task_go_to_destination, "task1")
+		taskMgr.add(self.tick, "tick")
 
-	def take_frame_picture(self):
-		left = PNMImage()
-		right = PNMImage()
 
-		self.cam1.node().getDisplayRegion(0).getScreenshot(left)
-		self.cam2.node().getDisplayRegion(0).getScreenshot(right)
+	def tick(self, task):
+		left_ram = self.left_dr.getScreenshot().getRamImage().get_data()
+		right_ram = self.right_dr.getScreenshot().getRamImage().get_data()
 
-		left.write(Filename("left.jpg"))
-		right.write(Filename("right.jpg"))
-
-	def task_go_to_destination(self, task):
-		self.take_frame_picture()
-		self.go_forward()
+		object_dirn = self.render.getRelativeVector(self.agent, Vec3.forward())
+		move = self.agent_cont.get_next_action(self.agent.getPos(), object_dirn, left_ram, right_ram)
+		if move == Agent_Controller.TURN_LEFT:
+			# print 'turn left'
+			self.turn_left()
+		elif move == Agent_Controller.TURN_RIGHT:
+			# print 'turn right'
+			self.turn_right()
+		elif move == Agent_Controller.STOP:
+			return task.done
+		else:
+			# print 'move_forward'
+			self.go_forward()
+		sleep(0.1)
 		return task.cont
 
 	def go_forward(self):
 
-		print self.agent.getPos()
+		# print self.agent.getPos()
 		self.agent.setPos(self.agent, 0, 0.1, 0)
 		self.cTrav.traverse(self.render)
-		for entry in self.chandler.getEntries():
-			print entry
-		print self.chandler.getNumEntries()
+		# for entry in self.chandler.getEntries():
+		# 	print entry
+		# print self.chandler.getNumEntries()
 		if self.chandler.getNumEntries() > 0:
 			self.agent.setPos(self.agent, 0, -0.1, 0)
-		print self.agent.getPos()
-		print "-----------------"
+		# print self.agent.getPos()
+		# print "-----------------"
 
 
 	def go_backward(self):
-		print self.agent.getPos()
+		# print self.agent.getPos()
 		self.agent.setPos(self.agent, 0, -0.1, 0)
 		self.cTrav.traverse(self.render)
-		print self.chandler.getNumEntries()
+		# print self.chandler.getNumEntries()
 		if self.chandler.getNumEntries() > 0:
 			self.agent.setPos(self.agent, 0, 0.1, 0)
-		print "-----------------"
+		# print "-----------------"
 
 
 	def turn_left(self):
