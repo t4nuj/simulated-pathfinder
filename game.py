@@ -44,24 +44,45 @@ class Game(ShowBase):
         self.chandler = CollisionHandlerQueue()
 
         # Set room
-        self.room = loader.loadModel('custom/rooml/L')
+        self.room = loader.loadModel('custom/squareRoom/squareRoom')
         self.room.reparentTo(self.render)
         self.room.setPos(0, 0, 0)
 
         # Set light source
         plight = PointLight('plight')
         plnp = self.render.attachNewNode(plight)
-        plnp.setPos(0, 0, 3)
+        plnp.setPos(0, 0, 4)
         self.render.setLight(plnp)
+
+        plight = PointLight('plight2')
+        plnp = self.render.attachNewNode(plight)
+        plnp.setPos(-5, -5, 5)
+        self.render.setLight(plnp)
+
+        plight = PointLight('plight3')
+        plnp = self.render.attachNewNode(plight)
+        plnp.setPos(5, -5, 5)
+        # self.render.setLight(plnp)
+
+        # plight = PointLight('plight4')
+        # plnp = self.render.attachNewNode(plight)
+        # plnp.setPos(-5, 5, 5)
+        # self.render.setLight(plnp)
+
+        # plight = PointLight('plight5')
+        # plnp = self.render.attachNewNode(plight)
+        # plnp.setPos(5, 5, 5)
+        # self.render.setLight(plnp)
 
         # Load agent model
         self.agent = loader.loadModel('custom/agent.egg')
         self.agent.reparentTo(self.render)
-        self.agent.setPos(0, -2, 3)
+        self.agent.setPos(5,1, 0.2)
 
         self.dest = loader.loadModel('custom/dest.egg')
         self.dest.reparentTo(self.render)
-        self.dest.setPos(0,1,3)
+        self.dest.setScale(0.001)
+        self.dest.setPos(-3,-1,0.2)
 
 
         # Do some collision sphere shit
@@ -81,8 +102,8 @@ class Game(ShowBase):
         
         # self.cam_god = base.makeCamera(base.win)
         self.cam_god = base.makeCamera(base.win, displayRegion=(0,1,0.29,1))
-        self.cam1 = base.makeCamera(base.win, displayRegion=(0.25,.5,0,0.288))
-        self.cam2 = base.makeCamera(base.win, displayRegion=(.5,0.75,0,0.288))
+        self.cam1 = base.makeCamera(base.win, displayRegion=(0.24,.49,0,0.288))
+        self.cam2 = base.makeCamera(base.win, displayRegion=(.51,0.76,0,0.288))
 
 
         self.cam1.reparentTo(self.agent)
@@ -91,7 +112,7 @@ class Game(ShowBase):
 
         self.cam1.setPos(-0.03,0,0.15)
         self.cam2.setPos(0.03,0,0.15)
-        self.cam_god.setPos(0,-2,0.5)
+        self.cam_god.setPos(0,-10,10)
         self.cam1.node().getLens().setNear(0.05)
         self.cam2.node().getLens().setNear(0.05)
         # sel.cam_god.setAngle()
@@ -114,7 +135,7 @@ class Game(ShowBase):
 
         self.agent_cont = Agent_Controller(self.agent.getPos(), self.dest.getPos())
         # Task bindings
-        taskMgr.add(self.tick, "tick")
+        self.count = 0
 
 
     def tick(self, task):
@@ -141,11 +162,14 @@ class Game(ShowBase):
             self.turn_left()
         elif move == Agent_Controller.TURN_RIGHT:
             # print 'turn right'
+            # self.count += 1
             self.turn_right()
         elif move == Agent_Controller.STOP:
+            print self.count
             return task.done
         elif move == Agent_Controller.MOVE_FORWARD:
             # print 'move_forward'
+            # self.count += 1
             self.go_forward()
         else:
             pass
@@ -156,6 +180,8 @@ class Game(ShowBase):
     def go_forward(self):
 
         # print self.agent.getPos()
+        self.count += 1 
+
         self.agent.setPos(self.agent, 0, 0.1, 0)
         self.cTrav.traverse(self.render)
         for entry in self.chandler.getEntries():
@@ -181,9 +207,11 @@ class Game(ShowBase):
 
 
     def turn_left(self):
+        self.count += 1 
         self.agent.setH(self.agent.getH() + 5)
 
     def turn_right(self):
+        self.count += 1 
         self.agent.setH(self.agent.getH() - 5)
 
     def go_up(self):
@@ -199,7 +227,7 @@ class Game(ShowBase):
             self.agent.setPos(self.agent, 0, 0, 0.25)
 
     def register_tick(self):
-        pass
+        taskMgr.add(self.tick, "tick")
 
     def deregister_tick(self):
         pass

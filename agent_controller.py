@@ -9,9 +9,13 @@ import cv2
 
 from training import pred_fn,offset,scale
 
+from time import sleep
+
 class Agent_Controller():
-    dx = [0,1,0,-1]
-    dy = [-1,0,1,0]
+    # dx = [0,1,0,-1]
+    # dy = [-1,0,1,0]
+    dx = [0,1,0,-1,1,1,-1,-1]
+    dy = [-1,0,1,0,-1,1,-1,1]
     TURN_LEFT = 0
     TURN_RIGHT = 1
     MOVE_FORWARD = 2
@@ -28,7 +32,7 @@ class Agent_Controller():
         self.stereo = cv2.StereoBM_create(numDisparities=64, blockSize=5)
         print self.src, "src"
         print self.curr_cube, "curr"
-        print self.to_cube, "to"
+        print self.dest_cube, "dest"
 
         self.visited = [[0 for j in range(101)] for i in range(101)]
         self.dfs_stack = []
@@ -52,12 +56,12 @@ class Agent_Controller():
             return next_move
         to_dirn = LVector3f(self.to_cube.x-self.curr_cube.x, self.to_cube.y-self.curr_cube.y, self.to_cube.z-self.curr_cube.z)
         alignment = object_dirn.relativeAngleDeg(to_dirn)
-        depth_m = self.get_depth_map(left_ram_ptr,right_ram_ptr)
         print self.to_cube,'to_cube'
         print self.curr_cube,'curr_cube'
 
         # print alignment
-        if abs(alignment) <= 1e-5:
+        if abs(alignment) <= 1e-3:
+            depth_m = self.get_depth_map(left_ram_ptr,right_ram_ptr)
             if self.possible_fow(depth_m):
                 return self.MOVE_FORWARD
             else:
@@ -65,8 +69,10 @@ class Agent_Controller():
                 self.generate_new_cube()
                 return None
         elif alignment < 0:
+            # sleep(0.05)
             next_move = self.TURN_RIGHT
         else:
+            # sleep(0.05)
             next_move = self.TURN_LEFT
         return next_move
 
@@ -83,10 +89,11 @@ class Agent_Controller():
 
         prospects = []
 
-        for i in range(4):
+        for i in range(8):
             xx = int(self.to_cube.x+self.dx[i])
             yy = int(self.to_cube.y+self.dy[i])
-            prospects.append((xx,yy,abs(xx-self.dest_cube.x) + abs(yy-self.dest_cube.y) ))
+            prospects.append((xx,yy,(xx-self.dest_cube.x)**2 + (yy-self.dest_cube.y)**2))
+            # prospects.append((xx,yy,abs(xx-self.dest_cube.x) + abs(yy-self.dest_cube.y)))
 
         prospects = sorted(prospects, key=lambda prospect:prospect[2])
 
@@ -107,17 +114,19 @@ class Agent_Controller():
 
         prospects = []
 
-        for i in range(4):
+        for i in range(8):
             xx = int(self.curr_cube.x+self.dx[i])
             yy = int(self.curr_cube.y+self.dy[i])
-            prospects.append((xx,yy,abs(xx-self.dest_cube.x) + abs(yy-self.dest_cube.y) ))
+            prospects.append((xx,yy,(xx-self.dest_cube.x)**2 + (yy-self.dest_cube.y)**2))            
+            # prospects.append((xx,yy,abs(xx-self.dest_cube.x) + abs(yy-self.dest_cube.y)))
 
         prospects = sorted(prospects, key=lambda prospect:prospect[2])
 
-        # for (xx,yy,t) in prospects:
-        #   print (xx,yy,t)
+        print '---- prospects'
+        for (xx,yy,t) in prospects:
+          print (xx,yy,t)
 
-        # print "-----"
+        print "-----"
 
         for (xx,yy,t) in prospects:
             if self.check_visited(xx,yy) == 0:
@@ -127,9 +136,11 @@ class Agent_Controller():
 
 
     def possible_fow(sefl,im):
-        mean_depth = im[70:130,70:130].mean()
-        print mean_depth
-        if mean_depth > 0.99:
+        mean_depth = im[40:,80:120].mean()
+        # mean_depth2 = im[140:180,80:120].mean()
+        # print mean_depth,mean_depth2
+        # if mean_depth > 0.95 or mean_depth2 > 0.95:
+        if mean_depth > 0.85:
             return False
         else:
             return True
@@ -152,16 +163,16 @@ class Agent_Controller():
         inp = (inp-offset)/scale
         # print inp.shape
         out = pred_fn(inp.reshape((1,)+inp.shape))
-        # print out[0].shape
-        # # plt.clf()
+        print out[0].shape
+        # plt.clf()
         # disparity = self.stereo.compute(left_inp,right_inp)
-        plt.imshow(out[0].reshape(200,200),cmap='viridis')
-        plt.colorbar()
-        plt.savefig('fig.png')
-        plt.clf()
-        # plt.imshow(left_inp,cmap='coolwarm')
+        # plt.imshow(out[0].reshape(200,200),cmap='viridis')
+        # plt.colorbar()
+        # plt.savefig('fig.png')
+        # plt.clf()
+        # plt.imshow(left_inp.reshape(200,200))
         # plt.savefig('fig1.png')
-        # plt.imshow(right_inp,cmap='coolwarm')
+        # plt.imshow(right_inp.reshape(200,200))
         # plt.savefig('fig2.png')
         # plt.draw()
         # print left_inp.shape
